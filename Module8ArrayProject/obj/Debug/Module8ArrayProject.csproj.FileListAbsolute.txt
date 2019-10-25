@@ -1,0 +1,9 @@
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\bin\Debug\Module8ArrayProject.exe.config
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\bin\Debug\Module8ArrayProject.exe
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\bin\Debug\Module8ArrayProject.pdb
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\obj\Debug\Module8ArrayProject.csprojAssemblyReference.cache
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\obj\Debug\Module8ArrayProject.frmOfIceBridge.resources
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\obj\Debug\Module8ArrayProject.Properties.Resources.resources
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\obj\Debug\Module8ArrayProject.csproj.GenerateResource.cache
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\obj\Debug\Module8ArrayProject.exe
+C:\Users\Kevin Tran\source\repos\Module8ArraySolution\Module8ArrayProject\obj\Debug\Module8ArrayProject.pdb
