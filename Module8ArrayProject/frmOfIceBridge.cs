@@ -28,17 +28,79 @@ namespace Module8ArrayProject
 
         private void frmOfIceBridge_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 btnAdd.PerformClick();
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
+        {
+            int userNumber = 0;
+            string textBoxNumber = "";
+
+            textBoxNumber = txtNumber.Text;
+            if (IsBlank(txtNumber) == true)
+            {
+                if (IsInt(txtNumber) == true)
+                {
+                    if (InRange(txtNumber) == true)
+                    {
+                        userNumber = Convert.ToInt32(textBoxNumber);
+                        Array.Resize(ref numbersEntered, numbersEntered.Length + 1);
+                        numbersEntered[count] = userNumber;
+                        count++;
+                        txtNumber.Text = "";
+                    }
+                }
+            }
+        }
+        public bool IsBlank(TextBox textBox)
+        {
+            if (textBox.Text == "")
+            {
+                lblMessageBox.Text = "Number entry box is empty, please input a value";
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsInt(TextBox x)
+        {
+            string s = txtNumber.Text;
+            int number = 0;
+            if (int.TryParse(s, out number)) 
+            {
+                return true;
+            }
+            else
+            {
+                lblMessageBox.Text = "Decimals are not allowed in the the entry";
+                return false;
+            }
+        }
+
+        public bool InRange(TextBox x)
+        {
+            int number = Convert.ToInt32(x.Text);
+            if (number < -1000 || number > 1000)
+            {
+                lblMessageBox.Text = "Number is out of range, enter a value between -1000 and 1000";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+                
+        }
+
+        /*private void btnAdd_Click(object sender, EventArgs e)
         {
             if (numbersEntered.Length > maxIndex)
             {
@@ -71,25 +133,13 @@ namespace Module8ArrayProject
                     //txtNumber.Text = "";
                 }
             }
-        }
+        }*/
 
-        public bool IsDecimal(TextBox textBox, String name) 
-        {
-            decimal number = 0;
-            if(Decimal.TryParse(textBox.Text, out number)){
-                return true;
-            }
-            else
-            {
-                
-                return false;
-            }
-        }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
             lblArrayDisplay.Text = "";
-            for(int i = 0; i < numbersEntered.Length; i++)
+            for (int i = 0; i < numbersEntered.Length; i++)
             {
                 if (numbersEntered[i] != 0)
                 {
@@ -100,34 +150,42 @@ namespace Module8ArrayProject
 
         private void btnStats_Click(object sender, EventArgs e)
         {
-            int highest = numbersEntered.Max();
-            int lowest = numbersEntered.Min();
-            decimal sum = 0;
-            decimal numberCount = numbersEntered.Length;
-            
-            for (int i = 0; i < numbersEntered.Length; i++)
+            try
             {
-                sum = sum + numbersEntered[i];
+                int highest = numbersEntered.Max();
+                int lowest = numbersEntered.Min();
+                decimal sum = 0;
+                decimal numberCount = numbersEntered.Length;
+
+
+                for (int i = 0; i < numbersEntered.Length; i++)
+                {
+                    sum = sum + numbersEntered[i];
+                }
+
+                decimal average = sum / numberCount;
+                string strHighest = Convert.ToString(highest);
+                string strLowest = Convert.ToString(lowest);
+                string strAverage = average.ToString("F3");
+                string strNumberCount = Convert.ToString(numberCount);
+
+                lblMessageBox.Text = "Average Number: " + strAverage + "\n" +
+                    "Highest Number: " + strHighest + "\n" +
+                    "Lowest Number: " + strLowest + "\n" +
+                    "Amount of Numbers: " + strNumberCount;
+
+                count = 0;
+                for (int i = 0; i < numbersEntered.Length; i++)
+                {
+                    numbersEntered[i] = 0;
+                }
+
+                lblArrayDisplay.Text = "";
             }
-
-            decimal average = sum / numberCount;
-            string strHighest = Convert.ToString(highest);
-            string strLowest = Convert.ToString(lowest);
-            string strAverage = average.ToString("F3");
-            string strNumberCount = Convert.ToString(numberCount);
-
-            lblMessageBox.Text = "Average Number: " + strAverage + "\n" +
-                "Highest Number: " + strHighest + "\n" +
-                "Lowest Number: " + strLowest + "\n" +
-                "Amount of Numbers: " + strNumberCount;
-
-            count = 0;
-            for (int i = 0; i < numbersEntered.Length; i++)
+            catch (System.InvalidOperationException)
             {
-                numbersEntered[i] = 0;
+                lblMessageBox.Text = "The array is currently empty";
             }
-
-            lblArrayDisplay.Text = "";
 
         }
 
