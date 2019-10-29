@@ -14,7 +14,7 @@ namespace Module8ArrayProject
     {
         int[] numbersEntered = { };
         int count = 0;
-        const int maxIndex = 12;
+        const int maxIndex = 8;
 
         public frmOfIceBridge()
         {
@@ -40,15 +40,16 @@ namespace Module8ArrayProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            int userNumber = 0;
             string textBoxNumber = "";
-
+            int userNumber = 0;
             textBoxNumber = txtNumber.Text;
-            if (IsBlank(txtNumber) == true)
+            if (count < maxIndex)
             {
-                if (IsInt(txtNumber) == true)
+
+
+                try
                 {
-                    if (InRange(txtNumber) == true)
+                    if (validateData())
                     {
                         userNumber = Convert.ToInt32(textBoxNumber);
                         Array.Resize(ref numbersEntered, numbersEntered.Length + 1);
@@ -57,8 +58,26 @@ namespace Module8ArrayProject
                         txtNumber.Text = "";
                     }
                 }
+                catch (Exception ex)
+                {
+                    lblMessageBox.Text = ex.Message + ex.GetType().ToString();
+                }
+            }
+            else
+            {
+                lblMessageBox.Text = "Array is full, only 8 entries are allowed";
             }
         }
+
+        public bool validateData ()
+        {
+            return
+                IsBlank(txtNumber) &&
+                IsDecimal(txtNumber)&&
+                IsInt32(txtNumber) &&
+                InRange(txtNumber);
+        }
+
         public bool IsBlank(TextBox textBox)
         {
             if (textBox.Text == "")
@@ -66,10 +85,13 @@ namespace Module8ArrayProject
                 lblMessageBox.Text = "Number entry box is empty, please input a value";
                 return false;
             }
-            return true;
+            else
+            {
+                return true;
+            }
         }
 
-        public bool IsInt(TextBox x)
+        public bool IsInt32(TextBox x)
         {
             string s = txtNumber.Text;
             int number = 0;
@@ -79,11 +101,26 @@ namespace Module8ArrayProject
             }
             else
             {
-                lblMessageBox.Text = "Decimals are not allowed in the the entry";
+                lblMessageBox.Text = "Please enter a numeric value";
                 return false;
             }
         }
 
+        public bool IsDecimal(TextBox x)
+        {
+            string s = txtNumber.Text;
+            decimal number = 0;
+            if (decimal.TryParse(s, out number))
+            {
+                return true;
+            }
+            else
+            {
+                lblMessageBox.Text = "Decimals are not allow in the entries";
+                return false;
+                
+            }
+        }
         public bool InRange(TextBox x)
         {
             int number = Convert.ToInt32(x.Text);
@@ -99,42 +136,6 @@ namespace Module8ArrayProject
             
                 
         }
-
-        /*private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (numbersEntered.Length > maxIndex)
-            {
-                lblMessageBox.Text = "Array is full";
-            }
-            else
-            {
-                int userNumber = 0;
-                string textBoxNumber = "";
-
-                textBoxNumber = txtNumber.Text;
-
-                try
-                {
-                    userNumber = Convert.ToInt32(textBoxNumber);
-                }
-                catch (Exception)
-                {
-                    lblMessageBox.Text = "Please enter an numeric value";
-                }
-                if (userNumber < -1000 || userNumber > 1000)
-                {
-                    lblMessageBox.Text = "Please enter a value between -1000 and 1000";
-                }
-                else
-                {
-                    Array.Resize(ref numbersEntered, numbersEntered.Length + 1);
-                    numbersEntered[count] = userNumber;
-                    count++;
-                    //txtNumber.Text = "";
-                }
-            }
-        }*/
-
 
         private void btnShow_Click(object sender, EventArgs e)
         {
